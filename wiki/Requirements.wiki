@@ -4,5 +4,5 @@ Requirements to run the Project:
 
  * [http://dev.mysql.com/downloads MySQL]
  * [http://dev.mysql.com/downloads/connector/j/5.1.html MySQL Connector/J]
- * Create database actasap
- * User apps having password apps
+ * Database 'actasap'
+ * User 'apps' having password 'apps'
