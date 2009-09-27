@@ -1,0 +1,14 @@
+#summary UI Design.
+
+== Introduction ==
+
+User Interface Design.
+
+=== Journal Entry Form ===
+
+*Fields:*
+ * Date
+ * DR Account
+ * CR Account
+ * Amount
+ * Description
