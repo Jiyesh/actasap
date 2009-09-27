@@ -13,7 +13,7 @@ Database Design.
 Account
  * Account ID
  * Account Name
- * Segment1 {{{signifies what account type it is: Asset or Liability or Owners Equity}}}
+ * Segment1 {{{signifies what account type it is: Asset (01) or Liability (02) or Owners Equity (03)}}}
  * Segment2
  * Description
 
@@ -29,3 +29,10 @@ Journal
 
 Journal.DR Account = Account.Account ID<BR>
 Journal.CR Account = Account.Account ID
+
+=== Seeded Accounts ===
+||Name||Segment1||Segment2||Description||
+||Cash||01||01||Cash Account||
+||Capital||03||01||Capital Account (for investment and withdrawal by owner)||
+||Notes Payable||02||01||Notes/Written promises/Obligation||
+||Prepaid Rent||01||02||Prepaid rent||
