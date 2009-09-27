@@ -11,12 +11,14 @@ Database Design.
 === Tables ===
 
 Account
+ * Account ID
  * Account Name
  * Segment1 {{{signifies what account type it is: Asset or Liability or Owners Equity}}}
  * Segment2
  * Description
 
 Journal
+ * Journal ID
  * Date
  * Amount
  * DR Account
@@ -25,5 +27,5 @@ Journal
 
 === Relationships ===
 
-Journal.DR Account = Account.Account Name<BR>
-Journal.CR Account = Account.Account Name
+Journal.DR Account = Account.Account ID<BR>
+Journal.CR Account = Account.Account ID
