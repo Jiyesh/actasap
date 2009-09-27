@@ -31,7 +31,7 @@ Journal.DR Account = Account.Account ID<BR>
 Journal.CR Account = Account.Account ID
 
 === Seeded Accounts ===
-||Name||Segment1||Segment2||Description||
+||*Name*||*Segment1*||*Segment2||*Description*||
 ||Cash||01||01||Cash Account||
 ||Capital||03||01||Capital Account (for investment and withdrawal by owner)||
 ||Notes Payable||02||01||Notes/Written promises/Obligation||
