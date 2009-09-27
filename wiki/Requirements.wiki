@@ -1,7 +1,5 @@
 #summary Project Requirements.
 
-= Introduction =
-
 Requirements to run the Project.
 
  * [http://dev.mysql.com/downloads MySQL]
