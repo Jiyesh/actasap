@@ -1,5 +1,4 @@
--- Database Schema 'actasap'
--- User: apps/apps
+-- Run from user actuser/v1skl45D in schema actasap
 
 -- Create accounts table
 create table accounts (
