@@ -3,6 +3,5 @@
 
 Before installing running the program, please follow the given steps:
  # Install MySQL
- # Create database/schema 'actasap'
- # Create user 'apps' having password 'apps' and having all privileges on 'actasap' schema
- # Run initdb.sql (found under scripts folder) in actasap schema
+ # Run initdb1.sql (found under scripts folder) from root user
+ # Run initdb2.sql from actuser in actasap schema
