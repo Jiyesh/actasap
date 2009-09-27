@@ -26,8 +26,13 @@ package aole.view;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -39,21 +44,64 @@ import aole.misc.SpringUtilities;
 import aole.model.JournalEO;
 
 public class JournalEntry implements ActionListener {
-	String[] labels = { "Date: ", "Amount: ", "DR Account: ", "CR Account: ",
-			"Description: " };
-	int numPairs = labels.length;
-	JTextField tf[] = new JTextField[numPairs];
+	JTextField txtDate, txtAmt, txtDes;
+	JComboBox cboDR, cboCR;
+
+	private String[] getAccountNames () {
+		Connection con = DBConnection.getConnection();
+		Statement stmt = null;
+		try {
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT count(1) FROM Accounts");
+			rs.next();
+			int cnt = rs.getInt(1), i = 0;
+			String actnames[] = new String[cnt];
+			ResultSet rs2 = stmt
+					.executeQuery("SELECT account_name FROM Accounts");
+			while (rs2.next()) {
+				actnames[i] = rs2.getString(1);
+				i++;
+			}
+			rs.close();
+			rs2.close();
+			return actnames;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+			} catch (SQLException e) {
+			}
+		}
+		return null;
+	}
 
 	private void createAndShowGUI () {
 		// Create and populate the panel.
 		JPanel p = new JPanel(new SpringLayout());
-		for (int i = 0; i < numPairs; i++) {
-			JLabel l = new JLabel(labels[i], JLabel.TRAILING);
-			p.add(l);
-			tf[i] = new JTextField(10);
-			l.setLabelFor(tf[i]);
-			p.add(tf[i]);
-		}
+		String actNames[] = getAccountNames();
+
+		p.add(new JLabel("Date: ", JLabel.TRAILING));
+		txtDate = new JTextField(10);
+		p.add(txtDate);
+
+		p.add(new JLabel("Amount: ", JLabel.TRAILING));
+		txtAmt = new JTextField(10);
+		p.add(txtAmt);
+
+		p.add(new JLabel("DR Account: ", JLabel.TRAILING));
+		cboDR = new JComboBox(actNames);
+		p.add(cboDR);
+
+		p.add(new JLabel("CR Account: ", JLabel.TRAILING));
+		cboCR = new JComboBox(actNames);
+		p.add(cboCR);
+
+		p.add(new JLabel("Description: ", JLabel.TRAILING));
+		txtDes = new JTextField(10);
+		p.add(txtDes);
+
 		JButton btnApply = new JButton("Apply");
 		btnApply.addActionListener(this);
 		btnApply.setActionCommand("insert");
@@ -66,7 +114,7 @@ public class JournalEntry implements ActionListener {
 		p.add(btnApply);
 
 		// Lay out the panel.
-		SpringUtilities.makeCompactGrid(p, numPairs + 1, 2, // rows, cols
+		SpringUtilities.makeCompactGrid(p, 6, 2, // rows, cols
 				6, 6, // initX, initY
 				6, 6); // xPad, yPad
 
@@ -93,8 +141,9 @@ public class JournalEntry implements ActionListener {
 
 	public void actionPerformed (ActionEvent ae) {
 		if ("insert".equals(ae.getActionCommand())) {
-			JournalEO.insertRow(tf[0].getText(), tf[1].getText(), tf[2]
-					.getText(), tf[3].getText(), tf[4].getText());
+			JournalEO.insertRow(txtDate.getText(), txtAmt.getText(), cboDR
+					.getSelectedIndex() + 1, cboCR.getSelectedIndex() + 1,
+					txtDes.getText());
 		} else if ("exit".equals(ae.getActionCommand())) {
 			DBConnection.closeConnection();
 			System.exit(0);
