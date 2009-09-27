@@ -1,0 +1,29 @@
+#summary Database Design.
+#labels Phase-Design
+
+== Introduction ==
+
+Database Design.
+
+
+== Details ==
+
+=== Tables ===
+
+Account
+ * Account Name
+ * Segment1 {{{signifies what account type it is: Asset or Liability or Owners Equity}}}
+ * Segment2
+ * Description
+
+Journal
+ * Date
+ * Amount
+ * DR Account
+ * CR Account
+ * Description
+
+=== Relationships ===
+
+Journal.DR Account = Account.Account Name<BR>
+Journal.CR Account = Account.Account Name
