@@ -1,8 +1,0 @@
-#summary Project Requirements.
-
-Requirements to run the Project:
-
- * [http://dev.mysql.com/downloads MySQL]
- * [http://dev.mysql.com/downloads/connector/j/5.1.html MySQL Connector/J]
- * Database 'actasap'
- * User 'apps' having password 'apps' having all privileges on database 'actasap'
