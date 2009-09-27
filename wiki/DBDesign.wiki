@@ -10,14 +10,14 @@ Database Design.
 
 === Tables ===
 
-Account
+Accounts
  * Account ID
  * Account Name
  * Segment1 {{{signifies what account type it is: Asset (01) or Liability (02) or Owners Equity (03)}}}
  * Segment2
  * Description
 
-Journal
+Journals
  * Journal ID
  * Date
  * Amount
