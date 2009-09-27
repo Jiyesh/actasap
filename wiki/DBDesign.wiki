@@ -33,7 +33,7 @@ Journal.CR Account = Account.Account ID
 === Seeded Accounts ===
 || *Name* || *Segment1* || *Segment2* ||
 ||Cash||01||01||
-||H. Jacobs, capital||03||01||
+||Capital||03||01||
 ||Notes payable||02||01||
 ||Prepaid rent||01||02||
 ||Equipment||01||03||
