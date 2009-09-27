@@ -33,8 +33,8 @@ import aole.db.DBConnection;
  * 
  */
 public class JournalEO {
-	public static void insertRow (String date, String amount, String dr,
-			String cr, String descrip) {
+	public static void insertRow (String date, String amount, int dr, int cr,
+			String descrip) {
 		Connection con = DBConnection.getConnection();
 		try {
 			Statement stmt = con.createStatement();
