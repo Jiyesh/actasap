@@ -14,3 +14,6 @@ http://java.sun.com/j2se/1.3/docs/guide/jdbc/getstart/resultset.html
 
 ==Using JDBC with MySQL==
 http://www.developer.com/java/data/article.php/3417381/Using-JDBC-with-MySQL-Getting-Started.htm
+
+==Using Collections==
+http://java.sun.com/docs/books/tutorial/collections/interfaces/index.html
