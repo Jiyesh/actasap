@@ -30,6 +30,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -43,9 +45,13 @@ import aole.db.DBConnection;
 import aole.misc.SpringUtilities;
 import aole.model.JournalEO;
 
+import com.toedter.calendar.JDateChooser;
+
 public class JournalEntry implements ActionListener {
-	JTextField txtDate, txtAmt, txtDes;
+	JTextField txtAmt, txtDes;
 	JComboBox cboDR, cboCR;
+	JDateChooser cal;
+	static SimpleDateFormat dbFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 	private String[] getAccountNames () {
 		Connection con = DBConnection.getConnection();
@@ -83,8 +89,9 @@ public class JournalEntry implements ActionListener {
 		String actNames[] = getAccountNames();
 
 		p.add(new JLabel("Date: ", JLabel.TRAILING));
-		txtDate = new JTextField(10);
-		p.add(txtDate);
+		cal = new JDateChooser();
+		cal.setDate(new Date());
+		p.add(cal);
 
 		p.add(new JLabel("Amount: ", JLabel.TRAILING));
 		txtAmt = new JTextField(10);
@@ -141,7 +148,8 @@ public class JournalEntry implements ActionListener {
 
 	public void actionPerformed (ActionEvent ae) {
 		if ("insert".equals(ae.getActionCommand())) {
-			JournalEO.insertRow(txtDate.getText(), txtAmt.getText(), cboDR
+			String date = dbFormat.format(cal.getDate());
+			JournalEO.insertRow(date, txtAmt.getText(), cboDR
 					.getSelectedIndex() + 1, cboCR.getSelectedIndex() + 1,
 					txtDes.getText());
 		} else if ("exit".equals(ae.getActionCommand())) {
