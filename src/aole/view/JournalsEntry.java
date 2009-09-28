@@ -43,17 +43,32 @@ import javax.swing.SpringLayout;
 
 import aole.db.DBConnection;
 import aole.misc.SpringUtilities;
-import aole.model.JournalEO;
+import aole.model.JournalsEO;
 
 import com.toedter.calendar.JDateChooser;
 
-public class JournalEntry implements ActionListener {
+class CAccounts {
+	public int index;
+	public String name;
+
+	public CAccounts(int i, String n) {
+		index = i;
+		name = n;
+	}
+
+	@Override
+	public String toString () {
+		return name;
+	}
+}
+
+public class JournalsEntry implements ActionListener {
 	JTextField txtAmt, txtDes;
 	JComboBox cboDR, cboCR;
 	JDateChooser cal;
 	static SimpleDateFormat dbFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-	private String[] getAccountNames () {
+	private CAccounts[] getAccountNames () {
 		Connection con = DBConnection.getConnection();
 		Statement stmt = null;
 		try {
@@ -61,11 +76,11 @@ public class JournalEntry implements ActionListener {
 			ResultSet rs = stmt.executeQuery("SELECT count(1) FROM Accounts");
 			rs.next();
 			int cnt = rs.getInt(1), i = 0;
-			String actnames[] = new String[cnt];
+			CAccounts actnames[] = new CAccounts[cnt];
 			ResultSet rs2 = stmt
-					.executeQuery("SELECT account_name FROM Accounts");
+					.executeQuery("SELECT account_id, account_name FROM Accounts order by account_name");
 			while (rs2.next()) {
-				actnames[i] = rs2.getString(1);
+				actnames[i] = new CAccounts(rs2.getInt(1), rs2.getString(2));
 				i++;
 			}
 			rs.close();
@@ -86,7 +101,7 @@ public class JournalEntry implements ActionListener {
 	private void createAndShowGUI () {
 		// Create and populate the panel.
 		JPanel p = new JPanel(new SpringLayout());
-		String actNames[] = getAccountNames();
+		CAccounts actNames[] = getAccountNames();
 
 		p.add(new JLabel("Date: ", JLabel.TRAILING));
 		cal = new JDateChooser();
@@ -140,7 +155,7 @@ public class JournalEntry implements ActionListener {
 	public static void main (String[] args) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run () {
-				JournalEntry je = new JournalEntry();
+				JournalsEntry je = new JournalsEntry();
 				je.createAndShowGUI();
 			}
 		});
@@ -149,9 +164,9 @@ public class JournalEntry implements ActionListener {
 	public void actionPerformed (ActionEvent ae) {
 		if ("insert".equals(ae.getActionCommand())) {
 			String date = dbFormat.format(cal.getDate());
-			JournalEO.insertRow(date, txtAmt.getText(), cboDR
-					.getSelectedIndex() + 1, cboCR.getSelectedIndex() + 1,
-					txtDes.getText());
+			JournalsEO.insertRow(date, txtAmt.getText(), ((CAccounts) cboDR
+					.getSelectedItem()).index, ((CAccounts) cboCR
+					.getSelectedItem()).index, txtDes.getText());
 		} else if ("exit".equals(ae.getActionCommand())) {
 			DBConnection.closeConnection();
 			System.exit(0);

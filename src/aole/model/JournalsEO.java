@@ -32,7 +32,7 @@ import aole.db.DBConnection;
 /**
  * 
  */
-public class JournalEO {
+public class JournalsEO {
 	public static void insertRow (String date, String amount, int dr, int cr,
 			String descrip) {
 		Connection con = DBConnection.getConnection();
