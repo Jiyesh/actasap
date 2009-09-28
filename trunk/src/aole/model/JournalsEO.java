@@ -33,14 +33,14 @@ import aole.db.DBConnection;
  * 
  */
 public class JournalsEO {
-	public static void insertRow (String date, String amount, int dr, int cr,
-			String descrip) {
+	public static void insertRow (String date, String amtdr, String amtcr,
+			int act, String descrip) {
 		Connection con = DBConnection.getConnection();
 		try {
 			Statement stmt = con.createStatement();
-			String query = "insert into journals (journal_date, amount, dr_account, cr_account, description) values ";
-			query = query + "('" + date + "'," + amount + "," + dr + "," + cr
-					+ ",'" + descrip + "')";
+			String query = "insert into journals (journal_date, amount_dr, amount_cr, account_id, description) values ";
+			query = query + "('" + date + "'," + amtdr + "," + amtcr + ","
+					+ act + ",'" + descrip + "')";
 			System.out.println(query);
 			stmt.executeUpdate(query);
 		} catch (SQLException e) {

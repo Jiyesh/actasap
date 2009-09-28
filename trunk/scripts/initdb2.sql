@@ -13,9 +13,9 @@ create table accounts (
 create table journals (
   journal_id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
   journal_date DATE,
-  amount DECIMAL (10,2),
-  dr_account INTEGER,
-  cr_account INTEGER,
+  amount_dr DECIMAL (10,2),
+  amount_cr DECIMAL (10,2),
+  account_id INTEGER,
   description VARCHAR(500)
 );
 

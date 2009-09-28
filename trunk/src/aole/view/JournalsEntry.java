@@ -164,9 +164,12 @@ public class JournalsEntry implements ActionListener {
 	public void actionPerformed (ActionEvent ae) {
 		if ("insert".equals(ae.getActionCommand())) {
 			String date = dbFormat.format(cal.getDate());
-			JournalsEO.insertRow(date, txtAmt.getText(), ((CAccounts) cboDR
-					.getSelectedItem()).index, ((CAccounts) cboCR
-					.getSelectedItem()).index, txtDes.getText());
+			JournalsEO.insertRow(date, txtAmt.getText(), "0",
+					((CAccounts) cboDR.getSelectedItem()).index, txtDes
+							.getText());
+			JournalsEO.insertRow(date, "0", txtAmt.getText(),
+					((CAccounts) cboCR.getSelectedItem()).index, txtDes
+							.getText());
 		} else if ("exit".equals(ae.getActionCommand())) {
 			DBConnection.closeConnection();
 			System.exit(0);
