@@ -56,7 +56,6 @@ class CAccounts {
 		name = n;
 	}
 
-	@Override
 	public String toString () {
 		return name;
 	}
