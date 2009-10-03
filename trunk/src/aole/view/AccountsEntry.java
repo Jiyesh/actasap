@@ -51,6 +51,7 @@ public class AccountsEntry implements ActionListener {
 	JTextField txtName;
 	JTextField txtDes;
 	JComboBox cboCat;
+	JFrame frame;
 
 	public AccountsEntry() {
 		createAndShowGUI();
@@ -89,7 +90,7 @@ public class AccountsEntry implements ActionListener {
 				6, 6); // xPad, yPad
 
 		// Create and set up the window.
-		JFrame frame = new JFrame("Journal Entry Form");
+		frame = new JFrame("Journal Entry Form");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		Container cp = frame.getContentPane();
@@ -126,7 +127,7 @@ public class AccountsEntry implements ActionListener {
 					.getText());
 		} else if ("exit".equals(ae.getActionCommand())) {
 			DBConnection.closeConnection();
-			System.exit(0);
+			frame.dispose();
 		}
 	}
 }

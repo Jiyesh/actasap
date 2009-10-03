@@ -23,13 +23,22 @@ GNU General Public License for more details.
 
 package aole.report;
 
+import java.awt.Container;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
@@ -37,14 +46,44 @@ import javax.swing.table.TableModel;
 
 import aole.db.DBConnection;
 
-public class BalanceSheet {
+import com.toedter.calendar.JDateChooser;
+
+public class BalanceSheet implements ActionListener {
 	private JTable table;
 	private ArrayList data[];
 	final String[] headers = { "Assets", "Amount", "",
 			"Liability/Owners Equity", "Amount" };
+	JDateChooser cal;
+	static SimpleDateFormat dbFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+	public BalanceSheet() {
+		showParams();
+	}
+
+	private void showParams () {
+		JFrame jf = new JFrame("Parameters");
+		Container cp = jf.getContentPane();
+		cp.setLayout(new GridLayout(2, 1));
+
+		JPanel dp = new JPanel();
+		dp.add(new JLabel("Till Date:"));
+		cal = new JDateChooser(new Date());
+		dp.add(cal);
+
+		cp.add(dp);
+		JButton btn = new JButton("Prepare Balance Sheet");
+		btn.setActionCommand("run");
+		btn.addActionListener(this);
+		cp.add(btn);
+
+		jf.pack();
+		jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		jf.setVisible(true);
+	}
 
 	private void prepareData () {
 		int i, j;
+		String date = dbFormat.format(cal.getDate());
 		data = new ArrayList[headers.length];
 		data[0] = new ArrayList();
 		data[1] = new ArrayList();
@@ -55,10 +94,16 @@ public class BalanceSheet {
 				+ " from journals j, accounts a"
 				+ " where j.account_id = a.account_id"
 				+ " and a.segment1 = 1"
+				+ " and j.journal_date <= '"
+				+ date
+				+ "'"
 				+ " group by segment1, segment2";
 		String sLiab = "select a.account_name Liability, ifnull(sum(amount_cr), 0) - ifnull(sum(amount_dr),0) Amount"
 				+ " from journals j, accounts a"
 				+ " where j.account_id = a.account_id"
+				+ " and j.journal_date <= '"
+				+ date
+				+ "'"
 				+ " and a.segment1 in (2, 3)" + " group by segment1, segment2";
 		Connection con = DBConnection.getConnection();
 		try {
@@ -98,6 +143,9 @@ public class BalanceSheet {
 			String at = "select ifnull(sum(amount_dr), 0) - ifnull(sum(amount_cr),0) Amount"
 					+ " from journals j, accounts a"
 					+ " where j.account_id = a.account_id"
+					+ " and j.journal_date <= '"
+					+ date
+					+ "'"
 					+ " and a.segment1 = 1";
 			rs = stmt.executeQuery(at);
 			rs.next();
@@ -107,6 +155,9 @@ public class BalanceSheet {
 			String lt = "select ifnull(sum(amount_cr), 0) - ifnull(sum(amount_dr),0) Amount"
 					+ " from journals j, accounts a"
 					+ " where j.account_id = a.account_id"
+					+ " and j.journal_date <= '"
+					+ date
+					+ "'"
 					+ " and a.segment1 in (2, 3)";
 			rs = stmt.executeQuery(lt);
 			rs.next();
@@ -119,7 +170,7 @@ public class BalanceSheet {
 		}
 	}
 
-	public BalanceSheet() {
+	private void createAndShowGUI () {
 		prepareData();
 		TableModel dataModel = new AbstractTableModel() {
 			public int getColumnCount () {
@@ -162,7 +213,12 @@ public class BalanceSheet {
 		frame.setVisible(true);
 	}
 
-	public static void main (String[] args) {
-		new BalanceSheet();
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
+	public void actionPerformed (ActionEvent ae) {
+		if (ae.getActionCommand().equals("run")) {
+			createAndShowGUI();
+		}
 	}
 }
