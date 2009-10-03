@@ -21,7 +21,7 @@ GNU General Public License for more details.
  * ----------
  */
 
-package aole.db;
+package aole.act.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

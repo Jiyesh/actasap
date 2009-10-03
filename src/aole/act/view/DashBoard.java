@@ -21,7 +21,7 @@ GNU General Public License for more details.
  * ----------
  */
 
-package aole.view;
+package aole.act.view;
 
 import java.awt.Container;
 import java.awt.GridLayout;
@@ -31,8 +31,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import aole.report.BalanceSheet;
-import aole.report.IncomeStatement;
+import aole.act.report.BalanceSheet;
+import aole.act.report.IncomeStatement;
 
 public class DashBoard implements ActionListener {
 

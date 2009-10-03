@@ -21,7 +21,7 @@ GNU General Public License for more details.
  * ----------
  */
 
-package aole.view;
+package aole.act.view;
 
 import java.awt.Container;
 import java.awt.event.ActionEvent;
@@ -39,9 +39,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
-import aole.db.DBConnection;
-import aole.misc.SpringUtilities;
-import aole.model.AccountsEO;
+import aole.act.db.DBConnection;
+import aole.act.misc.SpringUtilities;
+import aole.act.model.AccountsEO;
 
 /**
  * 
