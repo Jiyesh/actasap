@@ -153,7 +153,7 @@ public class BalanceSheet {
 
 		// Create and set up the window.
 		JFrame frame = new JFrame("Balance Sheet");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		frame.getContentPane().add(scrollpane);
 

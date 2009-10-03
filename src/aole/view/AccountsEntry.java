@@ -52,6 +52,10 @@ public class AccountsEntry implements ActionListener {
 	JTextField txtDes;
 	JComboBox cboCat;
 
+	public AccountsEntry() {
+		createAndShowGUI();
+	}
+
 	private void createAndShowGUI () {
 		// Create and populate the panel.
 		JPanel p = new JPanel(new SpringLayout());
@@ -86,7 +90,7 @@ public class AccountsEntry implements ActionListener {
 
 		// Create and set up the window.
 		JFrame frame = new JFrame("Journal Entry Form");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		Container cp = frame.getContentPane();
 		cp.add(p);
@@ -94,16 +98,6 @@ public class AccountsEntry implements ActionListener {
 		// Display the window.
 		frame.pack();
 		frame.setVisible(true);
-	}
-
-	public static void main (String[] args) {
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run () {
-				AccountsEntry ae = new AccountsEntry();
-				ae.createAndShowGUI();
-			}
-		});
-
 	}
 
 	public void actionPerformed (ActionEvent ae) {

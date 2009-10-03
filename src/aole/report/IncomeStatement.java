@@ -156,7 +156,7 @@ public class IncomeStatement {
 
 		// Create and set up the window.
 		JFrame frame = new JFrame("Income Statement");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		frame.getContentPane().add(scrollpane);
 
