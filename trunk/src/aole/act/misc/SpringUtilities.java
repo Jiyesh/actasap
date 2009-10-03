@@ -29,7 +29,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package aole.misc;
+package aole.act.misc;
 
 import java.awt.Component;
 import java.awt.Container;

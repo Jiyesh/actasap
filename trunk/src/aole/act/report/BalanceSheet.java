@@ -21,7 +21,7 @@ GNU General Public License for more details.
  * ----------
  */
 
-package aole.report;
+package aole.act.report;
 
 import java.awt.Container;
 import java.awt.GridLayout;
@@ -44,7 +44,7 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
-import aole.db.DBConnection;
+import aole.act.db.DBConnection;
 
 import com.toedter.calendar.JDateChooser;
 

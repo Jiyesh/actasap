@@ -13,34 +13,34 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 */
 /*
- * File: AccountsEO.java
+ * File: JournalEO.java
  * Author: Bhupendra Aole
- * Date: Sep 28, 2009: 
+ * Date: Sep 27, 2009: 
  * 
  * Revisions:
  * ----------
  */
 
-package aole.model;
+package aole.act.model;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import aole.db.DBConnection;
+import aole.act.db.DBConnection;
 
 /**
  * 
  */
-public class AccountsEO {
-	public static void insertRow (String name, int seg1, int seg2,
-			String descrip) {
+public class JournalsEO {
+	public static void insertRow (String date, String amtdr, String amtcr,
+			int act, String descrip) {
 		Connection con = DBConnection.getConnection();
 		try {
 			Statement stmt = con.createStatement();
-			String query = "insert into accounts (account_name, segment1, segment2, description) values ";
-			query = query + "('" + name + "'," + seg1 + "," + seg2 + ",'"
-					+ descrip + "')";
+			String query = "insert into journals (journal_date, amount_dr, amount_cr, account_id, description) values ";
+			query = query + "('" + date + "'," + amtdr + "," + amtcr + ","
+					+ act + ",'" + descrip + "')";
 			System.out.println(query);
 			stmt.executeUpdate(query);
 		} catch (SQLException e) {
