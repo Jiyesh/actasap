@@ -67,6 +67,10 @@ public class JournalsEntry implements ActionListener {
 	JDateChooser cal;
 	static SimpleDateFormat dbFormat = new SimpleDateFormat("yyyy-MM-dd");
 
+	public JournalsEntry() {
+		createAndShowGUI();
+	}
+
 	private CAccounts[] getAccountNames () {
 		Connection con = DBConnection.getConnection();
 		Statement stmt = null;
@@ -141,7 +145,7 @@ public class JournalsEntry implements ActionListener {
 
 		// Create and set up the window.
 		JFrame frame = new JFrame("Journal Entry Form");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		Container cp = frame.getContentPane();
 		cp.add(p);
@@ -149,15 +153,6 @@ public class JournalsEntry implements ActionListener {
 		// Display the window.
 		frame.pack();
 		frame.setVisible(true);
-	}
-
-	public static void main (String[] args) {
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run () {
-				JournalsEntry je = new JournalsEntry();
-				je.createAndShowGUI();
-			}
-		});
 	}
 
 	public void actionPerformed (ActionEvent ae) {
