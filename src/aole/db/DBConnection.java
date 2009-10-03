@@ -61,6 +61,7 @@ public class DBConnection {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			con = null;
 		}
 	}
 }
